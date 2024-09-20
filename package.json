@@ -1,7 +1,7 @@
 {
   "name": "@quanhuzeyu/koishi-plugin-token-system",
   "description": "一个练手项目，用于模拟绘图网站代币来调用绘图插件",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "homepage": "https://github.com/QuanhuZeYu/koishi-plugin-token-system.git",

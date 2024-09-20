@@ -1,4 +1,4 @@
-import { Context, Schema } from 'koishi'
+import { Awaitable, Context, Schema, Service } from 'koishi'
 import { } from '@koishijs/plugin-database-sqlite'
 import { UserWallet } from './Data/interface/Type_userWallet'
 import Event from './Event'
@@ -15,6 +15,12 @@ export const inject = {
 declare module 'koishi' {
 	interface Tables {
 		tokenSystem: UserWallet
+	}
+}
+
+declare module 'koishi' {
+	interface Context {
+		tokenSystem: TokenSystem
 	}
 }
 
@@ -54,4 +60,20 @@ export function apply(ctx: Context) {
 			debug(`签到`)
 			Data.Commands.signIn(argv, message)
 		})
+}
+
+export class TokenSystem extends Service {
+	/** 本插件的所有可用字段，函数等。
+	 * 注意! 请勿随意修改插件内字段，否则会造成未知问题，建议开发者使用Data.API中的函数
+	 */
+	Data: typeof Data
+
+	constructor(ctx: Context) {
+		super(ctx, "token-system")
+		this.Data = Data
+	}
+
+	protected start(): Awaitable<void> {
+		this.Data = Data
+	}
 }
